@@ -1,0 +1,9 @@
+# Angular build artifacts
+management-portal/dist/
+members-portal/dist/
+management-portal/.angular/
+members-portal/.angular/
+
+# Dependencies
+management-portal/node_modules/
+members-portal/node_modules/

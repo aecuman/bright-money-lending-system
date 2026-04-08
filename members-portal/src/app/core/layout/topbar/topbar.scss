@@ -1,0 +1,12 @@
+.topbar {
+  background: #fff;
+  color: #6b0f1a;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  height: 56px;
+  padding: 0 16px;
+
+  .spacer { flex: 1 1 auto; }
+  .notification-icon { margin-right: 8px; color: #666; cursor: pointer; }
+  .user-btn { color: #6b0f1a; }
+  .user-name { font-size: 0.875rem; font-weight: 500; color: #6b0f1a; margin-left: 4px; }
+}

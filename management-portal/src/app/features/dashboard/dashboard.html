@@ -1,0 +1,40 @@
+<div class="page-header">
+  <h1>Dashboard</h1>
+  <p class="subtitle">Welcome back — here's a snapshot of operations today.</p>
+</div>
+
+<div class="stat-grid">
+  @for (stat of stats; track stat.label) {
+    <mat-card class="stat-card">
+      <mat-card-content>
+        <div class="stat-icon" [style.background]="stat.color + '22'">
+          <mat-icon [style.color]="stat.color">{{ stat.icon }}</mat-icon>
+        </div>
+        <div class="stat-info">
+          <div class="stat-value">{{ stat.value }}</div>
+          <div class="stat-label">{{ stat.label }}</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  }
+</div>
+
+<div class="section-grid">
+  <mat-card class="section-card">
+    <mat-card-header>
+      <mat-card-title>Recent Loan Applications</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p class="placeholder-text">Loan application list will appear here.</p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="section-card">
+    <mat-card-header>
+      <mat-card-title>Pending Approvals</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p class="placeholder-text">Approval queue will appear here.</p>
+    </mat-card-content>
+  </mat-card>
+</div>

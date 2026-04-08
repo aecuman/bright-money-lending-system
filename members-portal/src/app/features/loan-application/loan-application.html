@@ -1,0 +1,58 @@
+<div class="page-header">
+  <h1>Apply for a Loan</h1>
+  <p class="subtitle">Complete the steps below to submit your loan application.</p>
+</div>
+
+<mat-stepper orientation="vertical" linear="false">
+  <mat-step label="Loan Details">
+    <div class="step-content">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Loan Amount (UGX)</mat-label>
+        <input matInput type="number" [(ngModel)]="loanAmount" name="loanAmount" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Purpose of Loan</mat-label>
+        <mat-select [(ngModel)]="loanPurpose" name="loanPurpose">
+          <mat-option value="business">Business Capital</mat-option>
+          <mat-option value="personal">Personal</mat-option>
+          <mat-option value="agriculture">Agriculture</mat-option>
+          <mat-option value="education">Education</mat-option>
+          <mat-option value="medical">Medical</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Repayment Period</mat-label>
+        <mat-select [(ngModel)]="repaymentPeriod" name="repaymentPeriod">
+          <mat-option value="1">1 Month</mat-option>
+          <mat-option value="3">3 Months</mat-option>
+          <mat-option value="6">6 Months</mat-option>
+          <mat-option value="12">12 Months</mat-option>
+          <mat-option value="24">24 Months</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="step-actions">
+        <button mat-raised-button color="primary" matStepperNext>Next</button>
+      </div>
+    </div>
+  </mat-step>
+
+  <mat-step label="Supporting Documents">
+    <div class="step-content">
+      <p class="placeholder-text">Document upload (NIN, payslip, collateral) will appear here.</p>
+      <div class="step-actions">
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-raised-button color="primary" matStepperNext>Next</button>
+      </div>
+    </div>
+  </mat-step>
+
+  <mat-step label="Review & Submit">
+    <div class="step-content">
+      <p class="placeholder-text">Application summary for final review will appear here.</p>
+      <div class="step-actions">
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-raised-button color="primary">Submit Application</button>
+      </div>
+    </div>
+  </mat-step>
+</mat-stepper>

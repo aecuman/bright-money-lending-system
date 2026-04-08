@@ -1,0 +1,59 @@
+<div class="page-header">
+  <h1>Welcome back, John 👋</h1>
+  <p class="subtitle">Here's your loan account at a glance.</p>
+</div>
+
+<div class="loan-banner">
+  <mat-card class="banner-card">
+    <mat-card-content>
+      <div class="banner-grid">
+        <div class="banner-item">
+          <div class="banner-label">Active Loan</div>
+          <div class="banner-value">{{ loanSummary.activeLoan }}</div>
+        </div>
+        <div class="banner-item">
+          <div class="banner-label">Next Payment</div>
+          <div class="banner-value highlight">{{ loanSummary.nextPayment }}</div>
+        </div>
+        <div class="banner-item">
+          <div class="banner-label">Due Date</div>
+          <div class="banner-value">{{ loanSummary.dueDate }}</div>
+        </div>
+        <div class="banner-item">
+          <div class="banner-label">Outstanding Balance</div>
+          <div class="banner-value">{{ loanSummary.balance }}</div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div class="quick-actions">
+  <h2>Quick Actions</h2>
+  <div class="action-grid">
+    <mat-card class="action-card" routerLink="/apply">
+      <mat-card-content>
+        <mat-icon>add_circle</mat-icon>
+        <span>Apply for Loan</span>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="action-card" routerLink="/repayment-schedule">
+      <mat-card-content>
+        <mat-icon>calendar_month</mat-icon>
+        <span>View Schedule</span>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="action-card" routerLink="/statements">
+      <mat-card-content>
+        <mat-icon>receipt_long</mat-icon>
+        <span>Statements</span>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="action-card" routerLink="/profile">
+      <mat-card-content>
+        <mat-icon>manage_accounts</mat-icon>
+        <span>My Profile</span>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
