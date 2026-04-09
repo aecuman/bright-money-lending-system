@@ -1,0 +1,14 @@
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+
+  h1 { font-size: 1.75rem; font-weight: 700; margin: 0; color: #1a2744; }
+}
+
+.search-card { margin-bottom: 16px; }
+
+.search-field { width: 100%; }
+
+.placeholder-text { color: #aaa; font-style: italic; }

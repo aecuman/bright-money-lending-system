@@ -1,0 +1,62 @@
+.sidebar-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 16px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  margin-bottom: 8px;
+
+  .brand-icon {
+    font-size: 2rem;
+    margin-bottom: 4px;
+  }
+
+  .brand-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.5px;
+  }
+
+  .portal-badge {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    background: #3f8ef8;
+    color: #fff;
+    border-radius: 4px;
+    padding: 2px 8px;
+    margin-top: 4px;
+  }
+}
+
+mat-nav-list {
+  .nav-item {
+    color: rgba(255, 255, 255, 0.8) !important;
+    border-radius: 8px;
+    margin: 2px 8px;
+
+    mat-icon {
+      color: rgba(255, 255, 255, 0.6) !important;
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1) !important;
+      color: #fff !important;
+
+      mat-icon {
+        color: #fff !important;
+      }
+    }
+
+    &.active-link {
+      background: rgba(63, 142, 248, 0.25) !important;
+      color: #fff !important;
+      font-weight: 600;
+
+      mat-icon {
+        color: #3f8ef8 !important;
+      }
+    }
+  }
+}

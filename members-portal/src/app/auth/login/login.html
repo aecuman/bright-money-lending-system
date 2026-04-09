@@ -1,0 +1,41 @@
+<div class="login-wrapper">
+  <mat-card class="login-card">
+    <mat-card-header>
+      <div class="login-brand">
+        <span class="brand-icon">💰</span>
+        <h1 class="brand-title">Versa LMS</h1>
+        <span class="portal-label">Members' Portal</span>
+      </div>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form (ngSubmit)="login()" class="login-form">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Phone number or email</mat-label>
+          <input matInput type="text" [(ngModel)]="phone" name="phone" required />
+          <mat-icon matSuffix>phone</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            [type]="hidePassword ? 'password' : 'text'"
+            [(ngModel)]="password"
+            name="password"
+            required
+          />
+          <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
+            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" class="login-btn">
+          Sign In
+        </button>
+
+        <p class="signup-link">Don't have an account? <a href="#">Contact your loan officer</a></p>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

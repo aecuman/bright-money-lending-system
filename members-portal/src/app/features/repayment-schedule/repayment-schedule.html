@@ -1,0 +1,39 @@
+<div class="page-header">
+  <h1>Repayment Schedule</h1>
+</div>
+
+<mat-card>
+  <mat-card-content>
+    <table mat-table [dataSource]="schedule" class="schedule-table">
+      <ng-container matColumnDef="installment">
+        <th mat-header-cell *matHeaderCellDef>#</th>
+        <td mat-cell *matCellDef="let row">{{ row.installment }}</td>
+      </ng-container>
+      <ng-container matColumnDef="dueDate">
+        <th mat-header-cell *matHeaderCellDef>Due Date</th>
+        <td mat-cell *matCellDef="let row">{{ row.dueDate }}</td>
+      </ng-container>
+      <ng-container matColumnDef="principal">
+        <th mat-header-cell *matHeaderCellDef>Principal (UGX)</th>
+        <td mat-cell *matCellDef="let row">{{ row.principal }}</td>
+      </ng-container>
+      <ng-container matColumnDef="interest">
+        <th mat-header-cell *matHeaderCellDef>Interest (UGX)</th>
+        <td mat-cell *matCellDef="let row">{{ row.interest }}</td>
+      </ng-container>
+      <ng-container matColumnDef="total">
+        <th mat-header-cell *matHeaderCellDef>Total (UGX)</th>
+        <td mat-cell *matCellDef="let row">{{ row.total }}</td>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let row">
+          <span class="status-chip" [class]="row.status.toLowerCase()">{{ row.status }}</span>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </mat-card-content>
+</mat-card>
