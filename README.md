@@ -1,10 +1,10 @@
-# Versa Loan Management System (VLMS)
+# Bright Money Lending System
 
-A centralized and fully integrated platform to manage all core lending operations and customer interactions. Versa LMS is designed to improve operational efficiency, reduce risk, and enhance service delivery in both digital and field environments.
+A centralized and fully integrated platform to manage all core lending operations and customer interactions. Bright Money Lending System is designed to improve operational efficiency, reduce risk, and enhance service delivery in both digital and field environments.
 
 ## Overview
 
-The Versa Loan Management System automates the end-to-end loan management lifecycle — from borrower onboarding and loan origination through disbursement, repayment tracking, collections, and investor reporting.
+The Bright Money Lending System automates the end-to-end loan management lifecycle — from borrower onboarding and loan origination through disbursement, repayment tracking, collections, and investor reporting.
 
 ## Core System Modules
 
@@ -115,4 +115,4 @@ All project documentation is located in the [`docs/`](docs/) directory:
 
 - **Document Version:** v1.0
 - **Date:** 4 April 2026
-- **System:** Versa Loan Management System (VLMS)
+- **System:** Bright Money Lending System
