@@ -1,58 +1,109 @@
-<div class="page-header">
-  <h1>Apply for a Loan</h1>
-  <p class="subtitle">Complete the steps below to submit your loan application.</p>
+<div class="mb-6">
+  <h1 class="text-2xl font-bold text-slate-900">Apply for a Loan</h1>
+  <p class="text-slate-500 mt-1">Complete the steps below to submit your loan application.</p>
 </div>
 
-<mat-stepper orientation="vertical" linear="false">
-  <mat-step label="Loan Details">
-    <div class="step-content">
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Loan Amount (UGX)</mat-label>
-        <input matInput type="number" [(ngModel)]="loanAmount" name="loanAmount" />
-      </mat-form-field>
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Purpose of Loan</mat-label>
-        <mat-select [(ngModel)]="loanPurpose" name="loanPurpose">
-          <mat-option value="business">Business Capital</mat-option>
-          <mat-option value="personal">Personal</mat-option>
-          <mat-option value="agriculture">Agriculture</mat-option>
-          <mat-option value="education">Education</mat-option>
-          <mat-option value="medical">Medical</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Repayment Period</mat-label>
-        <mat-select [(ngModel)]="repaymentPeriod" name="repaymentPeriod">
-          <mat-option value="1">1 Month</mat-option>
-          <mat-option value="3">3 Months</mat-option>
-          <mat-option value="6">6 Months</mat-option>
-          <mat-option value="12">12 Months</mat-option>
-          <mat-option value="24">24 Months</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <div class="step-actions">
-        <button mat-raised-button color="primary" matStepperNext>Next</button>
+<!-- Step indicator -->
+<div class="flex items-center gap-0 mb-8">
+  @for (step of steps; track $index) {
+    <div class="flex items-center">
+      <div class="flex flex-col items-center">
+        <div
+          class="w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold border-2 transition-colors"
+          [class]="$index <= currentStep()
+            ? 'bg-rose-600 border-rose-600 text-white'
+            : 'bg-white border-gray-300 text-gray-400'"
+        >
+          @if ($index < currentStep()) {
+            <span class="material-icons text-sm leading-none">check</span>
+          } @else {
+            {{ $index + 1 }}
+          }
+        </div>
+        <span class="text-xs mt-1 font-medium whitespace-nowrap" [class]="$index <= currentStep() ? 'text-rose-600' : 'text-gray-400'">{{ step }}</span>
       </div>
+      @if ($index < steps.length - 1) {
+        <div class="w-16 h-0.5 mb-4 mx-2" [class]="$index < currentStep() ? 'bg-rose-600' : 'bg-gray-200'"></div>
+      }
     </div>
-  </mat-step>
+  }
+</div>
 
-  <mat-step label="Supporting Documents">
-    <div class="step-content">
-      <p class="placeholder-text">Document upload (NIN, payslip, collateral) will appear here.</p>
-      <div class="step-actions">
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-raised-button color="primary" matStepperNext>Next</button>
+<div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+  @switch (currentStep()) {
+    @case (0) {
+      <h2 class="text-base font-semibold text-slate-900 mb-4">Loan Details</h2>
+      <div class="flex flex-col gap-4 max-w-lg">
+        <div class="flex flex-col gap-1.5">
+          <label class="text-sm font-medium text-slate-700">Loan Amount (UGX)</label>
+          <input
+            type="number"
+            [(ngModel)]="loanAmount"
+            name="loanAmount"
+            placeholder="e.g. 1000000"
+            class="border border-gray-300 rounded-md px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
+          />
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <label class="text-sm font-medium text-slate-700">Purpose of Loan</label>
+          <select
+            [(ngModel)]="loanPurpose"
+            name="loanPurpose"
+            class="border border-gray-300 rounded-md px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent bg-white"
+          >
+            <option value="">Select purpose…</option>
+            <option value="business">Business Capital</option>
+            <option value="personal">Personal</option>
+            <option value="agriculture">Agriculture</option>
+            <option value="education">Education</option>
+            <option value="medical">Medical</option>
+          </select>
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <label class="text-sm font-medium text-slate-700">Repayment Period</label>
+          <select
+            [(ngModel)]="repaymentPeriod"
+            name="repaymentPeriod"
+            class="border border-gray-300 rounded-md px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent bg-white"
+          >
+            <option value="">Select period…</option>
+            <option value="1">1 Month</option>
+            <option value="3">3 Months</option>
+            <option value="6">6 Months</option>
+            <option value="12">12 Months</option>
+            <option value="24">24 Months</option>
+          </select>
+        </div>
+        <div class="flex justify-end mt-2">
+          <button (click)="nextStep()" class="bg-rose-600 hover:bg-rose-700 text-white font-medium px-6 py-2 rounded-md transition-colors text-sm">
+            Next
+          </button>
+        </div>
       </div>
-    </div>
-  </mat-step>
-
-  <mat-step label="Review & Submit">
-    <div class="step-content">
-      <p class="placeholder-text">Application summary for final review will appear here.</p>
-      <div class="step-actions">
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-raised-button color="primary">Submit Application</button>
+    }
+    @case (1) {
+      <h2 class="text-base font-semibold text-slate-900 mb-4">Supporting Documents</h2>
+      <p class="text-sm text-slate-400 italic mb-6">Document upload (NIN, payslip, collateral) will appear here.</p>
+      <div class="flex justify-between">
+        <button (click)="prevStep()" class="border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium px-6 py-2 rounded-md transition-colors text-sm">
+          Back
+        </button>
+        <button (click)="nextStep()" class="bg-rose-600 hover:bg-rose-700 text-white font-medium px-6 py-2 rounded-md transition-colors text-sm">
+          Next
+        </button>
       </div>
-    </div>
-  </mat-step>
-</mat-stepper>
+    }
+    @case (2) {
+      <h2 class="text-base font-semibold text-slate-900 mb-4">Review &amp; Submit</h2>
+      <p class="text-sm text-slate-400 italic mb-6">Application summary for final review will appear here.</p>
+      <div class="flex justify-between">
+        <button (click)="prevStep()" class="border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium px-6 py-2 rounded-md transition-colors text-sm">
+          Back
+        </button>
+        <button class="bg-rose-600 hover:bg-rose-700 text-white font-medium px-6 py-2 rounded-md transition-colors text-sm">
+          Submit Application
+        </button>
+      </div>
+    }
+  }
+</div>

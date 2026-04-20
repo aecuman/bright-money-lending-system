@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #f8fafc;
+  color: #0f172a;
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+.active-link {
+  background-color: rgba(225, 29, 72, 0.15) !important;
+  color: #fff !important;
+  font-weight: 600;
+}
+.active-link .material-icons {
+  color: #fb7185 !important;
+}

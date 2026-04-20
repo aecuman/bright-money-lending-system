@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-profile',
-  imports: [MatCardModule, MatIconModule, MatButtonModule, MatDividerModule],
+  imports: [],
   templateUrl: './profile.html',
   styleUrl: './profile.scss',
 })

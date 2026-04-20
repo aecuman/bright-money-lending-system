@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
+import { Component, signal } from '@angular/core';
 
 @Component({
   selector: 'app-topbar',
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule],
+  imports: [],
   templateUrl: './topbar.html',
   styleUrl: './topbar.scss',
 })
 export class TopbarComponent {
   userName = 'Admin User';
+  menuOpen = signal(false);
+
+  toggleMenu() {
+    this.menuOpen.update(v => !v);
+  }
 }

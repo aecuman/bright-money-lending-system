@@ -1,44 +1,54 @@
-<div class="login-wrapper">
-  <mat-card class="login-card">
-    <mat-card-header>
-      <div class="login-brand">
-        <span class="brand-icon">💰</span>
-        <h1 class="brand-title">Bright Money Lending System</h1>
-        <span class="portal-label">Management Portal</span>
-      </div>
-    </mat-card-header>
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 to-blue-900">
+  <div class="w-full max-w-md bg-white rounded-xl shadow-xl p-8">
+    <div class="flex flex-col items-center mb-8">
+      <span class="text-5xl mb-2">💰</span>
+      <h1 class="text-2xl font-bold text-slate-900 text-center">Bright Money Lending System</h1>
+      <span class="mt-2 text-xs uppercase tracking-widest bg-blue-600 text-white rounded px-3 py-0.5">Management Portal</span>
+    </div>
 
-    <mat-card-content>
-      <form (ngSubmit)="login()" class="login-form">
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Email address</mat-label>
-          <input matInput type="email" [(ngModel)]="email" name="email" required />
-          <mat-icon matSuffix>email</mat-icon>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Password</mat-label>
+    <form (ngSubmit)="login()" class="flex flex-col gap-4">
+      <div class="flex flex-col gap-1.5">
+        <label class="text-sm font-medium text-slate-700">Email address</label>
+        <div class="relative">
           <input
-            matInput
+            type="email"
+            [(ngModel)]="email"
+            name="email"
+            required
+            placeholder="you@example.com"
+            class="w-full border border-gray-300 rounded-md px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-10"
+          />
+          <span class="material-icons absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-base">email</span>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-1.5">
+        <label class="text-sm font-medium text-slate-700">Password</label>
+        <div class="relative">
+          <input
             [type]="hidePassword ? 'password' : 'text'"
             [(ngModel)]="password"
             name="password"
             required
+            placeholder="••••••••"
+            class="w-full border border-gray-300 rounded-md px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-10"
           />
           <button
-            mat-icon-button
-            matSuffix
             type="button"
             (click)="hidePassword = !hidePassword"
+            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
           >
-            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            <span class="material-icons text-base leading-none">{{ hidePassword ? 'visibility_off' : 'visibility' }}</span>
           </button>
-        </mat-form-field>
+        </div>
+      </div>
 
-        <button mat-raised-button color="primary" type="submit" class="login-btn">
-          Sign In
-        </button>
-      </form>
-    </mat-card-content>
-  </mat-card>
+      <button
+        type="submit"
+        class="w-full mt-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-md transition-colors text-sm"
+      >
+        Sign In
+      </button>
+    </form>
+  </div>
 </div>

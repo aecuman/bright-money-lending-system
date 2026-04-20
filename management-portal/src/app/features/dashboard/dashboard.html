@@ -1,40 +1,29 @@
-<div class="page-header">
-  <h1>Dashboard</h1>
-  <p class="subtitle">Welcome back — here's a snapshot of operations today.</p>
+<div class="mb-6">
+  <h1 class="text-2xl font-bold text-slate-900">Dashboard</h1>
+  <p class="text-slate-500 mt-1">Welcome back — here's a snapshot of operations today.</p>
 </div>
 
-<div class="stat-grid">
+<div class="grid grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
   @for (stat of stats; track stat.label) {
-    <mat-card class="stat-card">
-      <mat-card-content>
-        <div class="stat-icon" [style.background]="stat.color + '22'">
-          <mat-icon [style.color]="stat.color">{{ stat.icon }}</mat-icon>
-        </div>
-        <div class="stat-info">
-          <div class="stat-value">{{ stat.value }}</div>
-          <div class="stat-label">{{ stat.label }}</div>
-        </div>
-      </mat-card-content>
-    </mat-card>
+    <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-5 flex items-center gap-4">
+      <div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0" [class]="stat.bg">
+        <span class="material-icons text-xl leading-none" [class]="stat.color">{{ stat.icon }}</span>
+      </div>
+      <div>
+        <div class="text-xl font-bold text-slate-900">{{ stat.value }}</div>
+        <div class="text-xs text-slate-500 mt-0.5">{{ stat.label }}</div>
+      </div>
+    </div>
   }
 </div>
 
-<div class="section-grid">
-  <mat-card class="section-card">
-    <mat-card-header>
-      <mat-card-title>Recent Loan Applications</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <p class="placeholder-text">Loan application list will appear here.</p>
-    </mat-card-content>
-  </mat-card>
-
-  <mat-card class="section-card">
-    <mat-card-header>
-      <mat-card-title>Pending Approvals</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <p class="placeholder-text">Approval queue will appear here.</p>
-    </mat-card-content>
-  </mat-card>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+  <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-5">
+    <h2 class="text-base font-semibold text-slate-900 mb-3">Recent Loan Applications</h2>
+    <p class="text-sm text-slate-400 italic">Loan application list will appear here.</p>
+  </div>
+  <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-5">
+    <h2 class="text-base font-semibold text-slate-900 mb-3">Pending Approvals</h2>
+    <p class="text-sm text-slate-400 italic">Approval queue will appear here.</p>
+  </div>
 </div>

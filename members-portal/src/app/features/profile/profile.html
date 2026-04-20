@@ -1,44 +1,45 @@
-<div class="page-header">
-  <h1>My Profile</h1>
-  <button mat-raised-button color="primary">
-    <mat-icon>edit</mat-icon> Edit Profile
+<div class="flex items-center justify-between mb-6">
+  <h1 class="text-2xl font-bold text-slate-900">My Profile</h1>
+  <button class="flex items-center gap-2 bg-rose-600 hover:bg-rose-700 text-white text-sm font-medium px-4 py-2 rounded-md transition-colors">
+    <span class="material-icons text-base leading-none">edit</span>
+    Edit Profile
   </button>
 </div>
 
-<mat-card class="profile-card">
-  <mat-card-content>
-    <div class="avatar-section">
-      <div class="avatar">JM</div>
-      <div class="member-info">
-        <h2>{{ member.name }}</h2>
-        <span class="member-since">Member since {{ member.memberSince }}</span>
+<div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+  <div class="flex items-center gap-4 mb-6">
+    <div class="w-16 h-16 rounded-full bg-rose-100 text-rose-700 flex items-center justify-center text-xl font-bold shrink-0">
+      JM
+    </div>
+    <div>
+      <h2 class="text-lg font-semibold text-slate-900">{{ member.name }}</h2>
+      <span class="text-sm text-slate-500">Member since {{ member.memberSince }}</span>
+    </div>
+  </div>
+
+  <hr class="border-gray-200 mb-6" />
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+    <div class="flex items-start gap-3">
+      <span class="material-icons text-rose-500 text-xl mt-0.5">email</span>
+      <div>
+        <div class="text-xs font-medium text-slate-500 uppercase tracking-wider">Email</div>
+        <div class="text-sm text-slate-800 mt-0.5">{{ member.email }}</div>
       </div>
     </div>
-
-    <mat-divider></mat-divider>
-
-    <div class="details-grid">
-      <div class="detail-item">
-        <mat-icon>email</mat-icon>
-        <div>
-          <div class="detail-label">Email</div>
-          <div class="detail-value">{{ member.email }}</div>
-        </div>
-      </div>
-      <div class="detail-item">
-        <mat-icon>phone</mat-icon>
-        <div>
-          <div class="detail-label">Phone</div>
-          <div class="detail-value">{{ member.phone }}</div>
-        </div>
-      </div>
-      <div class="detail-item">
-        <mat-icon>badge</mat-icon>
-        <div>
-          <div class="detail-label">National ID (NIN)</div>
-          <div class="detail-value">{{ member.nin }}</div>
-        </div>
+    <div class="flex items-start gap-3">
+      <span class="material-icons text-rose-500 text-xl mt-0.5">phone</span>
+      <div>
+        <div class="text-xs font-medium text-slate-500 uppercase tracking-wider">Phone</div>
+        <div class="text-sm text-slate-800 mt-0.5">{{ member.phone }}</div>
       </div>
     </div>
-  </mat-card-content>
-</mat-card>
+    <div class="flex items-start gap-3">
+      <span class="material-icons text-rose-500 text-xl mt-0.5">badge</span>
+      <div>
+        <div class="text-xs font-medium text-slate-500 uppercase tracking-wider">National ID (NIN)</div>
+        <div class="text-sm text-slate-800 mt-0.5">{{ member.nin }}</div>
+      </div>
+    </div>
+  </div>
+</div>
