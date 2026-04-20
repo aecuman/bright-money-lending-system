@@ -1,11 +1,9 @@
-<div class="shell-container">
+<div class="flex flex-col h-screen">
   <app-topbar></app-topbar>
-  <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav mode="side" opened class="sidenav">
-      <app-sidebar></app-sidebar>
-    </mat-sidenav>
-    <mat-sidenav-content class="main-content">
+  <div class="flex flex-1 overflow-hidden">
+    <app-sidebar></app-sidebar>
+    <main class="flex-1 overflow-y-auto bg-slate-50 p-6">
       <router-outlet></router-outlet>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
+    </main>
+  </div>
 </div>

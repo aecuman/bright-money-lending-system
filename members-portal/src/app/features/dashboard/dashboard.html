@@ -1,59 +1,47 @@
-<div class="page-header">
-  <h1>Welcome back, John 👋</h1>
-  <p class="subtitle">Here's your loan account at a glance.</p>
+<div class="mb-6">
+  <h1 class="text-2xl font-bold text-slate-900">Welcome back, John 👋</h1>
+  <p class="text-slate-500 mt-1">Here's your loan account at a glance.</p>
 </div>
 
-<div class="loan-banner">
-  <mat-card class="banner-card">
-    <mat-card-content>
-      <div class="banner-grid">
-        <div class="banner-item">
-          <div class="banner-label">Active Loan</div>
-          <div class="banner-value">{{ loanSummary.activeLoan }}</div>
-        </div>
-        <div class="banner-item">
-          <div class="banner-label">Next Payment</div>
-          <div class="banner-value highlight">{{ loanSummary.nextPayment }}</div>
-        </div>
-        <div class="banner-item">
-          <div class="banner-label">Due Date</div>
-          <div class="banner-value">{{ loanSummary.dueDate }}</div>
-        </div>
-        <div class="banner-item">
-          <div class="banner-label">Outstanding Balance</div>
-          <div class="banner-value">{{ loanSummary.balance }}</div>
-        </div>
-      </div>
-    </mat-card-content>
-  </mat-card>
+<div class="bg-rose-600 text-white rounded-xl p-6 mb-6 shadow-sm">
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+    <div>
+      <div class="text-rose-200 text-xs font-medium uppercase tracking-wider mb-1">Active Loan</div>
+      <div class="text-xl font-bold">{{ loanSummary.activeLoan }}</div>
+    </div>
+    <div>
+      <div class="text-rose-200 text-xs font-medium uppercase tracking-wider mb-1">Next Payment</div>
+      <div class="text-xl font-bold text-yellow-300">{{ loanSummary.nextPayment }}</div>
+    </div>
+    <div>
+      <div class="text-rose-200 text-xs font-medium uppercase tracking-wider mb-1">Due Date</div>
+      <div class="text-xl font-bold">{{ loanSummary.dueDate }}</div>
+    </div>
+    <div>
+      <div class="text-rose-200 text-xs font-medium uppercase tracking-wider mb-1">Outstanding Balance</div>
+      <div class="text-xl font-bold">{{ loanSummary.balance }}</div>
+    </div>
+  </div>
 </div>
 
-<div class="quick-actions">
-  <h2>Quick Actions</h2>
-  <div class="action-grid">
-    <mat-card class="action-card" routerLink="/apply">
-      <mat-card-content>
-        <mat-icon>add_circle</mat-icon>
-        <span>Apply for Loan</span>
-      </mat-card-content>
-    </mat-card>
-    <mat-card class="action-card" routerLink="/repayment-schedule">
-      <mat-card-content>
-        <mat-icon>calendar_month</mat-icon>
-        <span>View Schedule</span>
-      </mat-card-content>
-    </mat-card>
-    <mat-card class="action-card" routerLink="/statements">
-      <mat-card-content>
-        <mat-icon>receipt_long</mat-icon>
-        <span>Statements</span>
-      </mat-card-content>
-    </mat-card>
-    <mat-card class="action-card" routerLink="/profile">
-      <mat-card-content>
-        <mat-icon>manage_accounts</mat-icon>
-        <span>My Profile</span>
-      </mat-card-content>
-    </mat-card>
+<div>
+  <h2 class="text-base font-semibold text-slate-900 mb-3">Quick Actions</h2>
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+    <a routerLink="/apply" class="bg-white border border-gray-200 rounded-lg shadow-sm p-5 flex flex-col items-center gap-2 hover:border-rose-300 hover:shadow-md transition-all cursor-pointer group">
+      <span class="material-icons text-3xl text-rose-500 group-hover:text-rose-600">add_circle</span>
+      <span class="text-sm font-medium text-slate-700">Apply for Loan</span>
+    </a>
+    <a routerLink="/repayment-schedule" class="bg-white border border-gray-200 rounded-lg shadow-sm p-5 flex flex-col items-center gap-2 hover:border-rose-300 hover:shadow-md transition-all cursor-pointer group">
+      <span class="material-icons text-3xl text-rose-500 group-hover:text-rose-600">calendar_month</span>
+      <span class="text-sm font-medium text-slate-700">View Schedule</span>
+    </a>
+    <a routerLink="/statements" class="bg-white border border-gray-200 rounded-lg shadow-sm p-5 flex flex-col items-center gap-2 hover:border-rose-300 hover:shadow-md transition-all cursor-pointer group">
+      <span class="material-icons text-3xl text-rose-500 group-hover:text-rose-600">receipt_long</span>
+      <span class="text-sm font-medium text-slate-700">Statements</span>
+    </a>
+    <a routerLink="/profile" class="bg-white border border-gray-200 rounded-lg shadow-sm p-5 flex flex-col items-center gap-2 hover:border-rose-300 hover:shadow-md transition-all cursor-pointer group">
+      <span class="material-icons text-3xl text-rose-500 group-hover:text-rose-600">manage_accounts</span>
+      <span class="text-sm font-medium text-slate-700">My Profile</span>
+    </a>
   </div>
 </div>

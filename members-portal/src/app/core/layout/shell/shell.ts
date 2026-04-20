@@ -1,10 +1,6 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { TopbarComponent } from '../topbar/topbar';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatListModule } from '@angular/material/list';
-import { MatIconModule } from '@angular/material/icon';
-import { RouterLink, RouterLinkActive } from '@angular/router';
 
 interface NavItem {
   label: string;
@@ -14,7 +10,7 @@ interface NavItem {
 
 @Component({
   selector: 'app-shell',
-  imports: [RouterOutlet, TopbarComponent, MatSidenavModule, MatListModule, MatIconModule, RouterLink, RouterLinkActive],
+  imports: [RouterOutlet, TopbarComponent, RouterLink, RouterLinkActive],
   templateUrl: './shell.html',
   styleUrl: './shell.scss',
 })

@@ -1,34 +1,32 @@
-<div class="page-header">
-  <h1>Loan Management</h1>
-  <button mat-raised-button color="primary">
-    <mat-icon>add</mat-icon> New Loan Application
+<div class="flex items-center justify-between mb-6">
+  <h1 class="text-2xl font-bold text-slate-900">Loan Management</h1>
+  <button class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-md transition-colors">
+    <span class="material-icons text-base leading-none">add</span>
+    New Loan Application
   </button>
 </div>
 
-<mat-tab-group>
-  <mat-tab label="All Loans">
-    <div class="tab-content">
-      <p class="placeholder-text">Full loan list with search and filters will appear here.</p>
-    </div>
-  </mat-tab>
-  <mat-tab label="Pending Approval">
-    <div class="tab-content">
-      <p class="placeholder-text">Loans awaiting credit manager approval will appear here.</p>
-    </div>
-  </mat-tab>
-  <mat-tab label="Active">
-    <div class="tab-content">
-      <p class="placeholder-text">Currently active loans will appear here.</p>
-    </div>
-  </mat-tab>
-  <mat-tab label="Overdue">
-    <div class="tab-content">
-      <p class="placeholder-text">Overdue loans and repayment alerts will appear here.</p>
-    </div>
-  </mat-tab>
-  <mat-tab label="Closed">
-    <div class="tab-content">
-      <p class="placeholder-text">Closed / fully repaid loans will appear here.</p>
-    </div>
-  </mat-tab>
-</mat-tab-group>
+<div class="bg-white border border-gray-200 rounded-lg shadow-sm">
+  <div class="flex border-b border-gray-200 px-4">
+    @for (tab of tabs; track tab.id) {
+      <button
+        (click)="activeTab.set(tab.id)"
+        class="px-4 py-3 text-sm font-medium border-b-2 transition-colors"
+        [class]="activeTab() === tab.id
+          ? 'border-blue-600 text-blue-600'
+          : 'border-transparent text-slate-500 hover:text-slate-700'"
+      >
+        {{ tab.label }}
+      </button>
+    }
+  </div>
+  <div class="p-5">
+    @switch (activeTab()) {
+      @case ('all') { <p class="text-sm text-slate-400 italic">Full loan list with search and filters will appear here.</p> }
+      @case ('pending') { <p class="text-sm text-slate-400 italic">Loans awaiting credit manager approval will appear here.</p> }
+      @case ('active') { <p class="text-sm text-slate-400 italic">Currently active loans will appear here.</p> }
+      @case ('overdue') { <p class="text-sm text-slate-400 italic">Overdue loans and repayment alerts will appear here.</p> }
+      @case ('closed') { <p class="text-sm text-slate-400 italic">Closed / fully repaid loans will appear here.</p> }
+    }
+  </div>
+</div>
