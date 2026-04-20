@@ -1,6 +1,248 @@
-<div class="mb-6">
+<div class="flex items-center justify-between mb-6">
   <h1 class="text-2xl font-bold text-slate-900">Field Officers</h1>
+  <button
+    (click)="openModal()"
+    class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-md transition-colors"
+  >
+    <span class="material-icons text-base leading-none">person_add</span>
+    Add Field Officer
+  </button>
 </div>
+
 <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-5">
   <p class="text-sm text-slate-400 italic">Field officer assignments, GPS tracking, offline collection records and route management will appear here.</p>
 </div>
+
+<!-- Add Field Officer Modal -->
+@if (showModal()) {
+  <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl mx-4 max-h-[90vh] flex flex-col">
+      <!-- Header -->
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-lg bg-blue-100 flex items-center justify-center">
+            <span class="material-icons text-blue-600 text-xl">directions_bike</span>
+          </div>
+          <h2 class="text-lg font-semibold text-slate-900">Add Field Officer</h2>
+        </div>
+        <button (click)="closeModal()" class="text-gray-400 hover:text-gray-600">
+          <span class="material-icons">close</span>
+        </button>
+      </div>
+
+      <!-- Body -->
+      <div class="overflow-y-auto px-6 py-5 flex flex-col gap-5">
+        <form (ngSubmit)="submitForm()" novalidate>
+
+          <!-- Personal Information -->
+          <section>
+            <h3 class="text-sm font-semibold text-slate-700 uppercase tracking-wide mb-3">Personal Information</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+              <div class="flex flex-col gap-1 sm:col-span-2">
+                <label class="text-sm font-medium text-slate-700">Full Name <span class="text-red-500">*</span></label>
+                <input
+                  type="text"
+                  [(ngModel)]="form.fullName"
+                  name="fullName"
+                  required
+                  placeholder="e.g. Peter Kato"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  [class.border-red-400]="formSubmitted() && !form.fullName"
+                />
+                @if (formSubmitted() && !form.fullName) {
+                  <span class="text-xs text-red-500">Full name is required</span>
+                }
+              </div>
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Gender</label>
+                <select
+                  [(ngModel)]="form.gender"
+                  name="gender"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                >
+                  <option value="">Select gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">National ID <span class="text-red-500">*</span></label>
+                <input
+                  type="text"
+                  [(ngModel)]="form.nationalId"
+                  name="nationalId"
+                  required
+                  placeholder="e.g. CM90000000001"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  [class.border-red-400]="formSubmitted() && !form.nationalId"
+                />
+                @if (formSubmitted() && !form.nationalId) {
+                  <span class="text-xs text-red-500">National ID is required</span>
+                }
+              </div>
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Phone Number <span class="text-red-500">*</span></label>
+                <input
+                  type="tel"
+                  [(ngModel)]="form.phone"
+                  name="phone"
+                  required
+                  placeholder="+256 700 000 000"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  [class.border-red-400]="formSubmitted() && !form.phone"
+                />
+                @if (formSubmitted() && !form.phone) {
+                  <span class="text-xs text-red-500">Phone number is required</span>
+                }
+              </div>
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Email Address</label>
+                <input
+                  type="email"
+                  [(ngModel)]="form.email"
+                  name="email"
+                  placeholder="officer@brightmoney.co"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Hire Date</label>
+                <input
+                  type="date"
+                  [(ngModel)]="form.hireDate"
+                  name="hireDate"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+            </div>
+          </section>
+
+          <!-- Assignment -->
+          <section class="mt-5">
+            <h3 class="text-sm font-semibold text-slate-700 uppercase tracking-wide mb-3">Assignment</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Branch <span class="text-red-500">*</span></label>
+                <select
+                  [(ngModel)]="form.branch"
+                  name="branch"
+                  required
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                  [class.border-red-400]="formSubmitted() && !form.branch"
+                >
+                  <option value="">Select branch</option>
+                  <option value="head-office">Head Office</option>
+                  <option value="kampala-central">Kampala Central</option>
+                  <option value="mbarara">Mbarara</option>
+                  <option value="gulu">Gulu</option>
+                  <option value="jinja">Jinja</option>
+                </select>
+                @if (formSubmitted() && !form.branch) {
+                  <span class="text-xs text-red-500">Branch is required</span>
+                }
+              </div>
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Supervisor</label>
+                <input
+                  type="text"
+                  [(ngModel)]="form.supervisor"
+                  name="supervisor"
+                  placeholder="Supervisor's name"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Assigned Zone <span class="text-red-500">*</span></label>
+                <input
+                  type="text"
+                  [(ngModel)]="form.assignedZone"
+                  name="assignedZone"
+                  required
+                  placeholder="e.g. Zone A - Kawempe"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  [class.border-red-400]="formSubmitted() && !form.assignedZone"
+                />
+                @if (formSubmitted() && !form.assignedZone) {
+                  <span class="text-xs text-red-500">Assigned zone is required</span>
+                }
+              </div>
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Territory Description</label>
+                <input
+                  type="text"
+                  [(ngModel)]="form.territory"
+                  name="territory"
+                  placeholder="Specific streets, landmarks"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+            </div>
+          </section>
+
+          <!-- Device / Equipment -->
+          <section class="mt-5">
+            <h3 class="text-sm font-semibold text-slate-700 uppercase tracking-wide mb-3">Device / Equipment</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Device Type</label>
+                <select
+                  [(ngModel)]="form.deviceType"
+                  name="deviceType"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                >
+                  <option value="">Select type</option>
+                  <option value="android-phone">Android Phone</option>
+                  <option value="tablet">Tablet</option>
+                  <option value="pos-device">POS Device</option>
+                  <option value="feature-phone">Feature Phone</option>
+                </select>
+              </div>
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Device Serial / IMEI</label>
+                <input
+                  type="text"
+                  [(ngModel)]="form.deviceSerial"
+                  name="deviceSerial"
+                  placeholder="Serial or IMEI number"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+            </div>
+          </section>
+
+        </form>
+      </div>
+
+      <!-- Footer -->
+      <div class="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-200 bg-gray-50 rounded-b-xl">
+        <button
+          type="button"
+          (click)="closeModal()"
+          class="px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          (click)="submitForm()"
+          class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md transition-colors"
+        >
+          <span class="material-icons text-base leading-none">save</span>
+          Add Field Officer
+        </button>
+      </div>
+    </div>
+  </div>
+}

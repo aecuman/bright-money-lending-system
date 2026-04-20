@@ -1,6 +1,317 @@
-<div class="mb-6">
+<div class="flex items-center justify-between mb-6">
   <h1 class="text-2xl font-bold text-slate-900">Investors</h1>
+  <button
+    (click)="openModal()"
+    class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-md transition-colors"
+  >
+    <span class="material-icons text-base leading-none">add</span>
+    Add Investor
+  </button>
 </div>
+
 <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-5">
   <p class="text-sm text-slate-400 italic">Investor profiles, fund allocations, ROI dashboards and automated earnings reports will appear here.</p>
 </div>
+
+<!-- Add Investor Modal -->
+@if (showModal()) {
+  <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl mx-4 max-h-[90vh] flex flex-col">
+      <!-- Header -->
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-lg bg-blue-100 flex items-center justify-center">
+            <span class="material-icons text-blue-600 text-xl">account_balance_wallet</span>
+          </div>
+          <h2 class="text-lg font-semibold text-slate-900">Add Investor</h2>
+        </div>
+        <button (click)="closeModal()" class="text-gray-400 hover:text-gray-600">
+          <span class="material-icons">close</span>
+        </button>
+      </div>
+
+      <!-- Body -->
+      <div class="overflow-y-auto px-6 py-5 flex flex-col gap-5">
+        <form (ngSubmit)="submitForm()" novalidate>
+
+          <!-- Investor Type -->
+          <section>
+            <h3 class="text-sm font-semibold text-slate-700 uppercase tracking-wide mb-3">Investor Type</h3>
+            <div class="flex gap-4">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="radio"
+                  [(ngModel)]="form.investorType"
+                  name="investorType"
+                  value="individual"
+                  class="text-blue-600"
+                />
+                <span class="text-sm font-medium text-slate-700">Individual</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="radio"
+                  [(ngModel)]="form.investorType"
+                  name="investorType"
+                  value="corporate"
+                  class="text-blue-600"
+                />
+                <span class="text-sm font-medium text-slate-700">Corporate / Organisation</span>
+              </label>
+            </div>
+          </section>
+
+          <!-- Profile -->
+          <section class="mt-5">
+            <h3 class="text-sm font-semibold text-slate-700 uppercase tracking-wide mb-3">Profile</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+              @if (form.investorType === 'individual') {
+                <div class="flex flex-col gap-1 sm:col-span-2">
+                  <label class="text-sm font-medium text-slate-700">Full Name <span class="text-red-500">*</span></label>
+                  <input
+                    type="text"
+                    [(ngModel)]="form.fullName"
+                    name="fullName"
+                    required
+                    placeholder="e.g. Alice Nakato"
+                    class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    [class.border-red-400]="formSubmitted() && !form.fullName"
+                  />
+                  @if (formSubmitted() && !form.fullName) {
+                    <span class="text-xs text-red-500">Full name is required</span>
+                  }
+                </div>
+                <div class="flex flex-col gap-1">
+                  <label class="text-sm font-medium text-slate-700">National ID</label>
+                  <input
+                    type="text"
+                    [(ngModel)]="form.nationalId"
+                    name="nationalId"
+                    placeholder="e.g. CM90000000001"
+                    class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+              } @else {
+                <div class="flex flex-col gap-1 sm:col-span-2">
+                  <label class="text-sm font-medium text-slate-700">Company / Organisation Name <span class="text-red-500">*</span></label>
+                  <input
+                    type="text"
+                    [(ngModel)]="form.companyName"
+                    name="companyName"
+                    required
+                    placeholder="e.g. Sunrise Capital Ltd."
+                    class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    [class.border-red-400]="formSubmitted() && !form.companyName"
+                  />
+                  @if (formSubmitted() && !form.companyName) {
+                    <span class="text-xs text-red-500">Company name is required</span>
+                  }
+                </div>
+                <div class="flex flex-col gap-1">
+                  <label class="text-sm font-medium text-slate-700">Registration Number</label>
+                  <input
+                    type="text"
+                    [(ngModel)]="form.registrationNumber"
+                    name="registrationNumber"
+                    placeholder="e.g. 80020001234567"
+                    class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+              }
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Phone Number <span class="text-red-500">*</span></label>
+                <input
+                  type="tel"
+                  [(ngModel)]="form.phone"
+                  name="phone"
+                  required
+                  placeholder="+256 700 000 000"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  [class.border-red-400]="formSubmitted() && !form.phone"
+                />
+                @if (formSubmitted() && !form.phone) {
+                  <span class="text-xs text-red-500">Phone number is required</span>
+                }
+              </div>
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Email Address <span class="text-red-500">*</span></label>
+                <input
+                  type="email"
+                  [(ngModel)]="form.email"
+                  name="email"
+                  required
+                  placeholder="investor@example.com"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  [class.border-red-400]="formSubmitted() && !form.email"
+                />
+                @if (formSubmitted() && !form.email) {
+                  <span class="text-xs text-red-500">Email is required</span>
+                }
+              </div>
+            </div>
+          </section>
+
+          <!-- Investment Details -->
+          <section class="mt-5">
+            <h3 class="text-sm font-semibold text-slate-700 uppercase tracking-wide mb-3">Investment Details</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Investment Amount (UGX) <span class="text-red-500">*</span></label>
+                <input
+                  type="number"
+                  [(ngModel)]="form.investmentAmount"
+                  name="investmentAmount"
+                  required
+                  placeholder="0"
+                  min="0"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  [class.border-red-400]="formSubmitted() && !form.investmentAmount"
+                />
+                @if (formSubmitted() && !form.investmentAmount) {
+                  <span class="text-xs text-red-500">Investment amount is required</span>
+                }
+              </div>
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Investment Period (Months) <span class="text-red-500">*</span></label>
+                <input
+                  type="number"
+                  [(ngModel)]="form.investmentPeriodMonths"
+                  name="investmentPeriodMonths"
+                  required
+                  placeholder="e.g. 12"
+                  min="1"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  [class.border-red-400]="formSubmitted() && !form.investmentPeriodMonths"
+                />
+                @if (formSubmitted() && !form.investmentPeriodMonths) {
+                  <span class="text-xs text-red-500">Investment period is required</span>
+                }
+              </div>
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Expected Return Rate (% p.a.)</label>
+                <input
+                  type="number"
+                  [(ngModel)]="form.expectedReturnRate"
+                  name="expectedReturnRate"
+                  placeholder="e.g. 15"
+                  min="0"
+                  max="100"
+                  step="0.1"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Risk Profile</label>
+                <select
+                  [(ngModel)]="form.riskProfile"
+                  name="riskProfile"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                >
+                  <option value="">Select profile</option>
+                  <option value="low">Low Risk</option>
+                  <option value="medium">Medium Risk</option>
+                  <option value="high">High Risk</option>
+                </select>
+              </div>
+            </div>
+          </section>
+
+          <!-- Banking Details -->
+          <section class="mt-5">
+            <h3 class="text-sm font-semibold text-slate-700 uppercase tracking-wide mb-3">Banking Details</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Bank Name <span class="text-red-500">*</span></label>
+                <select
+                  [(ngModel)]="form.bankName"
+                  name="bankName"
+                  required
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                  [class.border-red-400]="formSubmitted() && !form.bankName"
+                >
+                  <option value="">Select bank</option>
+                  <option value="stanbic">Stanbic Bank</option>
+                  <option value="equity">Equity Bank</option>
+                  <option value="dfcu">DFCU Bank</option>
+                  <option value="centenary">Centenary Bank</option>
+                  <option value="absa">Absa Bank</option>
+                  <option value="kcb">KCB Bank</option>
+                  <option value="other">Other</option>
+                </select>
+                @if (formSubmitted() && !form.bankName) {
+                  <span class="text-xs text-red-500">Bank name is required</span>
+                }
+              </div>
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Account Number <span class="text-red-500">*</span></label>
+                <input
+                  type="text"
+                  [(ngModel)]="form.accountNumber"
+                  name="accountNumber"
+                  required
+                  placeholder="Bank account number"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  [class.border-red-400]="formSubmitted() && !form.accountNumber"
+                />
+                @if (formSubmitted() && !form.accountNumber) {
+                  <span class="text-xs text-red-500">Account number is required</span>
+                }
+              </div>
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Account Name</label>
+                <input
+                  type="text"
+                  [(ngModel)]="form.accountName"
+                  name="accountName"
+                  placeholder="Name on account"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              <div class="flex flex-col gap-1 sm:col-span-2">
+                <label class="text-sm font-medium text-slate-700">Notes</label>
+                <textarea
+                  [(ngModel)]="form.notes"
+                  name="notes"
+                  rows="2"
+                  placeholder="Any additional notes about this investor…"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                ></textarea>
+              </div>
+            </div>
+          </section>
+
+        </form>
+      </div>
+
+      <!-- Footer -->
+      <div class="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-200 bg-gray-50 rounded-b-xl">
+        <button
+          type="button"
+          (click)="closeModal()"
+          class="px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          (click)="submitForm()"
+          class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md transition-colors"
+        >
+          <span class="material-icons text-base leading-none">save</span>
+          Add Investor
+        </button>
+      </div>
+    </div>
+  </div>
+}
