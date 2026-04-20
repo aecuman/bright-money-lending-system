@@ -1,6 +1,224 @@
-<div class="mb-6">
+<div class="flex items-center justify-between mb-6">
   <h1 class="text-2xl font-bold text-slate-900">System Administration</h1>
+  @if (activeTab() === 'users') {
+    <button
+      (click)="openModal()"
+      class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-md transition-colors"
+    >
+      <span class="material-icons text-base leading-none">person_add</span>
+      Add User Account
+    </button>
+  }
 </div>
-<div class="bg-white border border-gray-200 rounded-lg shadow-sm p-5">
-  <p class="text-sm text-slate-400 italic">User roles, access control, audit logs, integrations and system-wide settings will appear here.</p>
+
+<div class="bg-white border border-gray-200 rounded-lg shadow-sm">
+  <div class="flex border-b border-gray-200 px-4 overflow-x-auto">
+    @for (tab of tabs; track tab.id) {
+      <button
+        (click)="activeTab.set(tab.id)"
+        class="px-4 py-3 text-sm font-medium border-b-2 transition-colors whitespace-nowrap"
+        [class]="activeTab() === tab.id
+          ? 'border-blue-600 text-blue-600'
+          : 'border-transparent text-slate-500 hover:text-slate-700'"
+      >
+        {{ tab.label }}
+      </button>
+    }
+  </div>
+  <div class="p-5">
+    @switch (activeTab()) {
+      @case ('users') { <p class="text-sm text-slate-400 italic">System user accounts with role assignments will appear here.</p> }
+      @case ('roles') { <p class="text-sm text-slate-400 italic">Role definitions and permission matrices will appear here.</p> }
+      @case ('audit') { <p class="text-sm text-slate-400 italic">Audit trail of all system actions will appear here.</p> }
+      @case ('settings') { <p class="text-sm text-slate-400 italic">System-wide configuration and integration settings will appear here.</p> }
+    }
+  </div>
 </div>
+
+<!-- Add User Account Modal -->
+@if (showModal()) {
+  <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg mx-4 max-h-[90vh] flex flex-col">
+      <!-- Header -->
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-lg bg-blue-100 flex items-center justify-center">
+            <span class="material-icons text-blue-600 text-xl">manage_accounts</span>
+          </div>
+          <h2 class="text-lg font-semibold text-slate-900">Add User Account</h2>
+        </div>
+        <button (click)="closeModal()" class="text-gray-400 hover:text-gray-600">
+          <span class="material-icons">close</span>
+        </button>
+      </div>
+
+      <!-- Body -->
+      <div class="overflow-y-auto px-6 py-5 flex flex-col gap-5">
+        <form (ngSubmit)="submitForm()" novalidate>
+
+          <!-- Identity -->
+          <section>
+            <h3 class="text-sm font-semibold text-slate-700 uppercase tracking-wide mb-3">User Details</h3>
+            <div class="flex flex-col gap-4">
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Full Name <span class="text-red-500">*</span></label>
+                <input
+                  type="text"
+                  [(ngModel)]="form.fullName"
+                  name="fullName"
+                  required
+                  placeholder="e.g. Admin User"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  [class.border-red-400]="formSubmitted() && !form.fullName"
+                />
+                @if (formSubmitted() && !form.fullName) {
+                  <span class="text-xs text-red-500">Full name is required</span>
+                }
+              </div>
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Email Address <span class="text-red-500">*</span></label>
+                <input
+                  type="email"
+                  [(ngModel)]="form.email"
+                  name="email"
+                  required
+                  placeholder="user@brightmoney.co"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  [class.border-red-400]="formSubmitted() && !form.email"
+                />
+                @if (formSubmitted() && !form.email) {
+                  <span class="text-xs text-red-500">Email is required</span>
+                }
+              </div>
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Phone Number</label>
+                <input
+                  type="tel"
+                  [(ngModel)]="form.phone"
+                  name="phone"
+                  placeholder="+256 700 000 000"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+            </div>
+          </section>
+
+          <!-- Access Control -->
+          <section class="mt-5">
+            <h3 class="text-sm font-semibold text-slate-700 uppercase tracking-wide mb-3">Access Control</h3>
+            <div class="flex flex-col gap-4">
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Role <span class="text-red-500">*</span></label>
+                <select
+                  [(ngModel)]="form.role"
+                  name="role"
+                  required
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                  [class.border-red-400]="formSubmitted() && !form.role"
+                >
+                  <option value="">Select role</option>
+                  <option value="super-admin">Super Administrator</option>
+                  <option value="branch-manager">Branch Manager</option>
+                  <option value="credit-officer">Credit Officer</option>
+                  <option value="loan-officer">Loan Officer</option>
+                  <option value="accountant">Accountant</option>
+                  <option value="field-officer">Field Officer</option>
+                  <option value="customer-service">Customer Service</option>
+                  <option value="report-viewer">Report Viewer (Read-only)</option>
+                </select>
+                @if (formSubmitted() && !form.role) {
+                  <span class="text-xs text-red-500">Role is required</span>
+                }
+              </div>
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Branch / Scope <span class="text-red-500">*</span></label>
+                <select
+                  [(ngModel)]="form.branch"
+                  name="branch"
+                  required
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                  [class.border-red-400]="formSubmitted() && !form.branch"
+                >
+                  <option value="">Select branch</option>
+                  <option value="all">All Branches (HQ)</option>
+                  <option value="head-office">Head Office</option>
+                  <option value="kampala-central">Kampala Central</option>
+                  <option value="mbarara">Mbarara</option>
+                  <option value="gulu">Gulu</option>
+                  <option value="jinja">Jinja</option>
+                </select>
+                @if (formSubmitted() && !form.branch) {
+                  <span class="text-xs text-red-500">Branch is required</span>
+                }
+              </div>
+
+              <div class="flex items-center gap-3">
+                <input
+                  type="checkbox"
+                  [(ngModel)]="form.isActive"
+                  name="isActive"
+                  id="isActive"
+                  class="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+                />
+                <label for="isActive" class="text-sm font-medium text-slate-700">Account is active</label>
+              </div>
+            </div>
+          </section>
+
+          <!-- Credentials -->
+          <section class="mt-5">
+            <h3 class="text-sm font-semibold text-slate-700 uppercase tracking-wide mb-3">Credentials</h3>
+            <div class="flex flex-col gap-4">
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Temporary Password</label>
+                <input
+                  type="password"
+                  [(ngModel)]="form.tempPassword"
+                  name="tempPassword"
+                  placeholder="Min. 8 characters"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              <div class="flex items-center gap-3">
+                <input
+                  type="checkbox"
+                  [(ngModel)]="form.forcePasswordChange"
+                  name="forcePasswordChange"
+                  id="forcePasswordChange"
+                  class="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+                />
+                <label for="forcePasswordChange" class="text-sm font-medium text-slate-700">Require password change on first login</label>
+              </div>
+            </div>
+          </section>
+
+        </form>
+      </div>
+
+      <!-- Footer -->
+      <div class="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-200 bg-gray-50 rounded-b-xl">
+        <button
+          type="button"
+          (click)="closeModal()"
+          class="px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          (click)="submitForm()"
+          class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md transition-colors"
+        >
+          <span class="material-icons text-base leading-none">save</span>
+          Create User
+        </button>
+      </div>
+    </div>
+  </div>
+}

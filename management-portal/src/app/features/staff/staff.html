@@ -1,6 +1,288 @@
-<div class="mb-6">
+<div class="flex items-center justify-between mb-6">
   <h1 class="text-2xl font-bold text-slate-900">Staff Management</h1>
+  <button
+    (click)="openModal()"
+    class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-md transition-colors"
+  >
+    <span class="material-icons text-base leading-none">person_add</span>
+    Add Staff Member
+  </button>
 </div>
+
 <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-5">
   <p class="text-sm text-slate-400 italic">Staff profiles, KPIs, role assignments and performance tracking will appear here.</p>
 </div>
+
+<!-- Add Staff Member Modal -->
+@if (showModal()) {
+  <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl mx-4 max-h-[90vh] flex flex-col">
+      <!-- Header -->
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-lg bg-blue-100 flex items-center justify-center">
+            <span class="material-icons text-blue-600 text-xl">badge</span>
+          </div>
+          <h2 class="text-lg font-semibold text-slate-900">Add Staff Member</h2>
+        </div>
+        <button (click)="closeModal()" class="text-gray-400 hover:text-gray-600">
+          <span class="material-icons">close</span>
+        </button>
+      </div>
+
+      <!-- Body -->
+      <div class="overflow-y-auto px-6 py-5 flex flex-col gap-5">
+        <form (ngSubmit)="submitForm()" novalidate>
+
+          <!-- Personal Information -->
+          <section>
+            <h3 class="text-sm font-semibold text-slate-700 uppercase tracking-wide mb-3">Personal Information</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+              <div class="flex flex-col gap-1 sm:col-span-2">
+                <label class="text-sm font-medium text-slate-700">Full Name <span class="text-red-500">*</span></label>
+                <input
+                  type="text"
+                  [(ngModel)]="form.fullName"
+                  name="fullName"
+                  required
+                  placeholder="e.g. Jane Smith"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  [class.border-red-400]="formSubmitted() && !form.fullName"
+                />
+                @if (formSubmitted() && !form.fullName) {
+                  <span class="text-xs text-red-500">Full name is required</span>
+                }
+              </div>
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Gender <span class="text-red-500">*</span></label>
+                <select
+                  [(ngModel)]="form.gender"
+                  name="gender"
+                  required
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                  [class.border-red-400]="formSubmitted() && !form.gender"
+                >
+                  <option value="">Select gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+                @if (formSubmitted() && !form.gender) {
+                  <span class="text-xs text-red-500">Gender is required</span>
+                }
+              </div>
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Date of Birth</label>
+                <input
+                  type="date"
+                  [(ngModel)]="form.dateOfBirth"
+                  name="dateOfBirth"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">National ID <span class="text-red-500">*</span></label>
+                <input
+                  type="text"
+                  [(ngModel)]="form.nationalId"
+                  name="nationalId"
+                  required
+                  placeholder="e.g. CM90000000001"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  [class.border-red-400]="formSubmitted() && !form.nationalId"
+                />
+                @if (formSubmitted() && !form.nationalId) {
+                  <span class="text-xs text-red-500">National ID is required</span>
+                }
+              </div>
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Phone Number <span class="text-red-500">*</span></label>
+                <input
+                  type="tel"
+                  [(ngModel)]="form.phone"
+                  name="phone"
+                  required
+                  placeholder="+256 700 000 000"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  [class.border-red-400]="formSubmitted() && !form.phone"
+                />
+                @if (formSubmitted() && !form.phone) {
+                  <span class="text-xs text-red-500">Phone number is required</span>
+                }
+              </div>
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Email Address <span class="text-red-500">*</span></label>
+                <input
+                  type="email"
+                  [(ngModel)]="form.email"
+                  name="email"
+                  required
+                  placeholder="staff@brightmoney.co"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  [class.border-red-400]="formSubmitted() && !form.email"
+                />
+                @if (formSubmitted() && !form.email) {
+                  <span class="text-xs text-red-500">Email is required</span>
+                }
+              </div>
+            </div>
+          </section>
+
+          <!-- Employment Details -->
+          <section class="mt-5">
+            <h3 class="text-sm font-semibold text-slate-700 uppercase tracking-wide mb-3">Employment Details</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Employee ID <span class="text-red-500">*</span></label>
+                <input
+                  type="text"
+                  [(ngModel)]="form.employeeId"
+                  name="employeeId"
+                  required
+                  placeholder="e.g. EMP-001"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  [class.border-red-400]="formSubmitted() && !form.employeeId"
+                />
+                @if (formSubmitted() && !form.employeeId) {
+                  <span class="text-xs text-red-500">Employee ID is required</span>
+                }
+              </div>
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Role / Designation <span class="text-red-500">*</span></label>
+                <select
+                  [(ngModel)]="form.role"
+                  name="role"
+                  required
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                  [class.border-red-400]="formSubmitted() && !form.role"
+                >
+                  <option value="">Select role</option>
+                  <option value="branch-manager">Branch Manager</option>
+                  <option value="credit-officer">Credit Officer</option>
+                  <option value="loan-officer">Loan Officer</option>
+                  <option value="accountant">Accountant</option>
+                  <option value="field-officer">Field Officer</option>
+                  <option value="customer-service">Customer Service</option>
+                  <option value="system-admin">System Administrator</option>
+                </select>
+                @if (formSubmitted() && !form.role) {
+                  <span class="text-xs text-red-500">Role is required</span>
+                }
+              </div>
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Department</label>
+                <select
+                  [(ngModel)]="form.department"
+                  name="department"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                >
+                  <option value="">Select department</option>
+                  <option value="credit">Credit</option>
+                  <option value="operations">Operations</option>
+                  <option value="finance">Finance & Accounting</option>
+                  <option value="collections">Collections</option>
+                  <option value="it">IT & Systems</option>
+                  <option value="hr">Human Resources</option>
+                </select>
+              </div>
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Branch <span class="text-red-500">*</span></label>
+                <select
+                  [(ngModel)]="form.branch"
+                  name="branch"
+                  required
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                  [class.border-red-400]="formSubmitted() && !form.branch"
+                >
+                  <option value="">Select branch</option>
+                  <option value="head-office">Head Office</option>
+                  <option value="kampala-central">Kampala Central</option>
+                  <option value="mbarara">Mbarara</option>
+                  <option value="gulu">Gulu</option>
+                  <option value="jinja">Jinja</option>
+                </select>
+                @if (formSubmitted() && !form.branch) {
+                  <span class="text-xs text-red-500">Branch is required</span>
+                }
+              </div>
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Supervisor</label>
+                <input
+                  type="text"
+                  [(ngModel)]="form.supervisorName"
+                  name="supervisorName"
+                  placeholder="Supervisor's name"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Hire Date <span class="text-red-500">*</span></label>
+                <input
+                  type="date"
+                  [(ngModel)]="form.hireDate"
+                  name="hireDate"
+                  required
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  [class.border-red-400]="formSubmitted() && !form.hireDate"
+                />
+                @if (formSubmitted() && !form.hireDate) {
+                  <span class="text-xs text-red-500">Hire date is required</span>
+                }
+              </div>
+            </div>
+          </section>
+
+          <!-- Account Setup -->
+          <section class="mt-5">
+            <h3 class="text-sm font-semibold text-slate-700 uppercase tracking-wide mb-3">Account Setup</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Temporary Password</label>
+                <input
+                  type="password"
+                  [(ngModel)]="form.tempPassword"
+                  name="tempPassword"
+                  placeholder="Min. 8 characters"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <p class="text-xs text-slate-400">Staff will be prompted to change on first login.</p>
+              </div>
+            </div>
+          </section>
+
+        </form>
+      </div>
+
+      <!-- Footer -->
+      <div class="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-200 bg-gray-50 rounded-b-xl">
+        <button
+          type="button"
+          (click)="closeModal()"
+          class="px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          (click)="submitForm()"
+          class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md transition-colors"
+        >
+          <span class="material-icons text-base leading-none">save</span>
+          Add Staff Member
+        </button>
+      </div>
+    </div>
+  </div>
+}

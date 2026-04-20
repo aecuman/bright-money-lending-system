@@ -1,6 +1,9 @@
 <div class="flex items-center justify-between mb-6">
   <h1 class="text-2xl font-bold text-slate-900">Loan Management</h1>
-  <button class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-md transition-colors">
+  <button
+    (click)="openModal()"
+    class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-md transition-colors"
+  >
     <span class="material-icons text-base leading-none">add</span>
     New Loan Application
   </button>
@@ -30,3 +33,267 @@
     }
   </div>
 </div>
+
+<!-- New Loan Application Modal -->
+@if (showModal()) {
+  <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl mx-4 max-h-[90vh] flex flex-col">
+      <!-- Header -->
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-lg bg-blue-100 flex items-center justify-center">
+            <span class="material-icons text-blue-600 text-xl">description</span>
+          </div>
+          <h2 class="text-lg font-semibold text-slate-900">New Loan Application</h2>
+        </div>
+        <button (click)="closeModal()" class="text-gray-400 hover:text-gray-600">
+          <span class="material-icons">close</span>
+        </button>
+      </div>
+
+      <!-- Body -->
+      <div class="overflow-y-auto px-6 py-5 flex flex-col gap-5">
+        <form (ngSubmit)="submitForm()" novalidate>
+
+          <!-- Borrower -->
+          <section>
+            <h3 class="text-sm font-semibold text-slate-700 uppercase tracking-wide mb-3">Borrower</h3>
+            <div class="flex flex-col gap-1">
+              <label class="text-sm font-medium text-slate-700">Search Borrower <span class="text-red-500">*</span></label>
+              <div class="relative">
+                <input
+                  type="text"
+                  [(ngModel)]="form.borrowerSearch"
+                  name="borrowerSearch"
+                  required
+                  placeholder="Search by name, NIN, or phone…"
+                  class="w-full border border-gray-300 rounded-md pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  [class.border-red-400]="formSubmitted() && !form.borrowerSearch"
+                />
+                <span class="material-icons absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400 text-base">search</span>
+              </div>
+              @if (formSubmitted() && !form.borrowerSearch) {
+                <span class="text-xs text-red-500">Please select a borrower</span>
+              }
+            </div>
+          </section>
+
+          <!-- Loan Details -->
+          <section class="mt-5">
+            <h3 class="text-sm font-semibold text-slate-700 uppercase tracking-wide mb-3">Loan Details</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Loan Product <span class="text-red-500">*</span></label>
+                <select
+                  [(ngModel)]="form.loanProduct"
+                  name="loanProduct"
+                  required
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                  [class.border-red-400]="formSubmitted() && !form.loanProduct"
+                >
+                  <option value="">Select product</option>
+                  <option value="personal">Personal Loan</option>
+                  <option value="business">Business Loan</option>
+                  <option value="agriculture">Agriculture Loan</option>
+                  <option value="emergency">Emergency Loan</option>
+                  <option value="group">Group Loan</option>
+                </select>
+                @if (formSubmitted() && !form.loanProduct) {
+                  <span class="text-xs text-red-500">Loan product is required</span>
+                }
+              </div>
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Loan Amount (UGX) <span class="text-red-500">*</span></label>
+                <input
+                  type="number"
+                  [(ngModel)]="form.loanAmount"
+                  name="loanAmount"
+                  required
+                  placeholder="0"
+                  min="0"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  [class.border-red-400]="formSubmitted() && !form.loanAmount"
+                />
+                @if (formSubmitted() && !form.loanAmount) {
+                  <span class="text-xs text-red-500">Loan amount is required</span>
+                }
+              </div>
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Tenure (Months) <span class="text-red-500">*</span></label>
+                <input
+                  type="number"
+                  [(ngModel)]="form.tenureMonths"
+                  name="tenureMonths"
+                  required
+                  placeholder="e.g. 12"
+                  min="1"
+                  max="120"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  [class.border-red-400]="formSubmitted() && !form.tenureMonths"
+                />
+                @if (formSubmitted() && !form.tenureMonths) {
+                  <span class="text-xs text-red-500">Tenure is required</span>
+                }
+              </div>
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Interest Rate (% per annum)</label>
+                <input
+                  type="number"
+                  [(ngModel)]="form.interestRate"
+                  name="interestRate"
+                  placeholder="e.g. 18"
+                  min="0"
+                  max="100"
+                  step="0.1"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              <div class="flex flex-col gap-1 sm:col-span-2">
+                <label class="text-sm font-medium text-slate-700">Loan Purpose <span class="text-red-500">*</span></label>
+                <select
+                  [(ngModel)]="form.purpose"
+                  name="purpose"
+                  required
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                  [class.border-red-400]="formSubmitted() && !form.purpose"
+                >
+                  <option value="">Select purpose</option>
+                  <option value="business-capital">Business Capital</option>
+                  <option value="education">Education</option>
+                  <option value="medical">Medical Expenses</option>
+                  <option value="home-improvement">Home Improvement</option>
+                  <option value="agriculture">Agriculture / Farming</option>
+                  <option value="asset-purchase">Asset Purchase</option>
+                  <option value="debt-consolidation">Debt Consolidation</option>
+                  <option value="other">Other</option>
+                </select>
+                @if (formSubmitted() && !form.purpose) {
+                  <span class="text-xs text-red-500">Loan purpose is required</span>
+                }
+              </div>
+            </div>
+          </section>
+
+          <!-- Collateral -->
+          <section class="mt-5">
+            <h3 class="text-sm font-semibold text-slate-700 uppercase tracking-wide mb-3">Collateral</h3>
+            <div class="flex items-center gap-3 mb-3">
+              <input
+                type="checkbox"
+                [(ngModel)]="form.hasCollateral"
+                name="hasCollateral"
+                id="hasCollateral"
+                class="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+              />
+              <label for="hasCollateral" class="text-sm font-medium text-slate-700">Loan is secured with collateral</label>
+            </div>
+            @if (form.hasCollateral) {
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="flex flex-col gap-1">
+                  <label class="text-sm font-medium text-slate-700">Collateral Type</label>
+                  <select
+                    [(ngModel)]="form.collateralType"
+                    name="collateralType"
+                    class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                  >
+                    <option value="">Select type</option>
+                    <option value="land">Land / Real Estate</option>
+                    <option value="vehicle">Motor Vehicle</option>
+                    <option value="equipment">Equipment / Machinery</option>
+                    <option value="savings">Savings / Fixed Deposit</option>
+                    <option value="livestock">Livestock</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+                <div class="flex flex-col gap-1">
+                  <label class="text-sm font-medium text-slate-700">Estimated Value (UGX)</label>
+                  <input
+                    type="number"
+                    [(ngModel)]="form.collateralValue"
+                    name="collateralValue"
+                    placeholder="0"
+                    min="0"
+                    class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+              </div>
+            }
+          </section>
+
+          <!-- Disbursement -->
+          <section class="mt-5">
+            <h3 class="text-sm font-semibold text-slate-700 uppercase tracking-wide mb-3">Disbursement</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Disbursement Method <span class="text-red-500">*</span></label>
+                <select
+                  [(ngModel)]="form.disbursementMethod"
+                  name="disbursementMethod"
+                  required
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                  [class.border-red-400]="formSubmitted() && !form.disbursementMethod"
+                >
+                  <option value="">Select method</option>
+                  <option value="mobile-money">Mobile Money</option>
+                  <option value="bank-transfer">Bank Transfer</option>
+                  <option value="cash">Cash</option>
+                  <option value="cheque">Cheque</option>
+                </select>
+                @if (formSubmitted() && !form.disbursementMethod) {
+                  <span class="text-xs text-red-500">Disbursement method is required</span>
+                }
+              </div>
+
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-slate-700">Account / Phone Number</label>
+                <input
+                  type="text"
+                  [(ngModel)]="form.accountNumber"
+                  name="accountNumber"
+                  placeholder="Account or mobile number"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              <div class="flex flex-col gap-1 sm:col-span-2">
+                <label class="text-sm font-medium text-slate-700">Notes / Comments</label>
+                <textarea
+                  [(ngModel)]="form.notes"
+                  name="notes"
+                  rows="3"
+                  placeholder="Additional notes for the credit officer…"
+                  class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                ></textarea>
+              </div>
+            </div>
+          </section>
+
+        </form>
+      </div>
+
+      <!-- Footer -->
+      <div class="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-200 bg-gray-50 rounded-b-xl">
+        <button
+          type="button"
+          (click)="closeModal()"
+          class="px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          (click)="submitForm()"
+          class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md transition-colors"
+        >
+          <span class="material-icons text-base leading-none">send</span>
+          Submit Application
+        </button>
+      </div>
+    </div>
+  </div>
+}
