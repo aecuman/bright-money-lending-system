@@ -49,6 +49,13 @@ export const routes: Routes = [
           import('./features/investors/investors').then((m) => m.InvestorsComponent),
       },
       {
+        path: 'defaulters',
+        loadComponent: () =>
+          import('./features/defaulters-portal/defaulters-portal').then(
+            (m) => m.DefaultersPortalComponent
+          ),
+      },
+      {
         path: 'reports',
         loadComponent: () =>
           import('./features/reports/reports').then((m) => m.ReportsComponent),
