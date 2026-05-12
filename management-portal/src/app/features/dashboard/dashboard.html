@@ -27,3 +27,19 @@
     <p class="text-sm text-slate-400 italic">Approval queue will appear here.</p>
   </div>
 </div>
+
+<div class="mt-6 bg-white border border-gray-200 rounded-lg shadow-sm p-5">
+  <h2 class="text-base font-semibold text-slate-900 mb-3">Home Tab Modules</h2>
+  <div class="space-y-3">
+    @for (module of homeModules; track module.name) {
+      <div class="border border-gray-100 rounded-md p-3">
+        <h3 class="text-sm font-semibold text-slate-800 mb-1">{{ module.name }}</h3>
+        <ul class="list-disc pl-5 text-xs text-slate-500 space-y-1">
+          @for (detail of module.details; track detail) {
+            <li>{{ detail }}</li>
+          }
+        </ul>
+      </div>
+    }
+  </div>
+</div>

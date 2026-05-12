@@ -16,13 +16,14 @@ interface NavItem {
 export class SidebarComponent {
   navItems: NavItem[] = [
     { label: 'Dashboard', icon: 'dashboard', route: '/dashboard' },
+    { label: 'Admin', icon: 'settings', route: '/system-admin' },
+    { label: 'Borrower Management', icon: 'people', route: '/borrowers' },
+    { label: 'Staff Management', icon: 'badge', route: '/staff' },
     { label: 'Loan Management', icon: 'account_balance', route: '/loans' },
-    { label: 'Borrowers', icon: 'people', route: '/borrowers' },
-    { label: 'Staff', icon: 'badge', route: '/staff' },
-    { label: 'Accounting', icon: 'calculate', route: '/accounting' },
-    { label: 'Field Officers', icon: 'location_on', route: '/field-officers' },
+    { label: 'Field Operations', icon: 'location_on', route: '/field-officers' },
+    { label: 'Account', icon: 'calculate', route: '/accounting' },
+    { label: 'Defaulters Portal', icon: 'gpp_bad', route: '/defaulters' },
     { label: 'Investors', icon: 'trending_up', route: '/investors' },
     { label: 'Reports', icon: 'bar_chart', route: '/reports' },
-    { label: 'System Admin', icon: 'settings', route: '/system-admin' },
   ];
 }

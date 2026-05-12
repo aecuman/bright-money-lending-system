@@ -8,6 +8,11 @@ interface StatCard {
   bg: string;
 }
 
+interface ModuleSummary {
+  name: string;
+  details: string[];
+}
+
 @Component({
   selector: 'app-dashboard',
   imports: [],
@@ -22,5 +27,48 @@ export class DashboardComponent {
     { label: 'Repayments (Today)', value: 'UGX 12.4M', icon: 'price_check', color: 'text-purple-600', bg: 'bg-purple-50' },
     { label: 'Overdue Loans', value: '87', icon: 'warning', color: 'text-red-600', bg: 'bg-red-50' },
     { label: 'Pending Approvals', value: '34', icon: 'pending_actions', color: 'text-cyan-600', bg: 'bg-cyan-50' },
+  ];
+
+  homeModules: ModuleSummary[] = [
+    { name: 'Dashboard', details: ['Company statistics and quick-access summaries'] },
+    {
+      name: 'Admin',
+      details: ['Roles and permissions', 'Loan types, interests, and penalties setup'],
+    },
+    {
+      name: 'Borrower Management',
+      details: ['Add borrowers', 'Approve borrowers', 'Suspend borrowers', 'Delete borrowers'],
+    },
+    {
+      name: 'Staff Management',
+      details: ['Add staff', 'Assign roles', 'Suspend staff', 'Delete staff'],
+    },
+    {
+      name: 'Loan Management',
+      details: [
+        'Loan setup and risk assessment',
+        'Approval and security list',
+        'Repayment scheduling and payment processing',
+        'Customer communication, delinquency, collections, reporting',
+      ],
+    },
+    {
+      name: 'Field Operations',
+      details: [
+        'Client marketing and acquisition',
+        'Loan application and verification',
+        'Repayment and collection management',
+      ],
+    },
+    { name: 'Account', details: ['Core accounting information and records'] },
+    {
+      name: 'Defaulters Portal',
+      details: ["Defaulter's name", 'Amount', 'Security attached to the loan'],
+    },
+    {
+      name: 'Investors',
+      details: ['Investor name', 'Amount invested', 'Interest earned', 'Repayment schedule'],
+    },
+    { name: 'Reports', details: ['System-generated reports for company health insights'] },
   ];
 }
