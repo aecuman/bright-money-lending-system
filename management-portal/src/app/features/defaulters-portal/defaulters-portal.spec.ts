@@ -19,4 +19,13 @@ describe('DefaultersPortalComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render required defaulter information fields', () => {
+    const text = fixture.nativeElement.textContent;
+
+    expect(text).toContain('Defaulters Portal');
+    expect(text).toContain("Defaulter's name");
+    expect(text).toContain('Amount');
+    expect(text).toContain('Security attached to the loan');
+  });
 });

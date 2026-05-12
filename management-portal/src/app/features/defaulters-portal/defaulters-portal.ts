@@ -4,6 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-defaulters-portal',
   imports: [],
   templateUrl: './defaulters-portal.html',
-  styleUrl: './defaulters-portal.scss',
+  styleUrls: ['./defaulters-portal.scss'],
 })
 export class DefaultersPortalComponent {}
