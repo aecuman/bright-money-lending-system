@@ -111,7 +111,7 @@ All project documentation is located in the [`docs/`](docs/) directory:
 | [Core Capabilities Automation & Integration](docs/Core%20Capabilities%20Automation%20%26%20Integration.pdf) | Automation and integration capabilities |
 | [Comprehensive Reporting & Analytics Module](docs/Comprehensive%20Reporting%20%26%20Analytics%20Module.pdf) | Reporting and analytics module specification |
 | [Dashboard Content](docs/DashBoard%20Content.pdf) | Dashboard requirements and content |
-| [Comment 1 Requirements Update](docs/BRIGHT%20MONEY%20LENDING%20SYSTEM_260424_120947.pdf) | Additional borrower, loan, field operations, staff, and company module requirements |
+| [Borrower & Loan Module Requirements (Apr 2024)](docs/BRIGHT%20MONEY%20LENDING%20SYSTEM_260424_120947.pdf) | Additional borrower, loan, field operations, staff, and company module requirements |
 | [Breakdown per Module](docs/Preack%20down%20module%20Per%20Module.pdf) | Module-by-module breakdown |
 | [Phase 3 User Capabilities](docs/phase%203%20user%20capabi_ities.pdf) | Phase 3 planned user capabilities |
 
