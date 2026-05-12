@@ -32,8 +32,11 @@ The Bright Money Lending System automates the end-to-end loan management lifecyc
 - **Loan Origination to Closure** — configurable loan products with flat and reducing-balance interest calculations
 - **Multi-channel Disbursement** — bank transfer, mobile money (MTN/Airtel), cash payouts
 - **Payment Schedules** — daily, weekly, and monthly repayment plans with auto-debit and late penalty triggers
+- **Risk Assessment Workflow** — borrower and collateral vetting before loan approval and disbursement
 - **Defaulters Handling** — tiered risk flagging, automated notifications, CRB sync (TransUnion, Creditinfo)
+- **Penalty Calculations** — fixed-interest default penalties aligned to money-lending operations
 - **Field Operations** — mobile app with offline data capture, route assignments, GPS check-in
+- **Collateral Registry** — unique collateral IDs for assets held against issued loans
 - **Comprehensive Reporting** — custom report builder, scheduled reports, PDF/Excel/CSV export
 - **Role-Based Access Control (RBAC)** — feature-level permissions per role
 - **Security & Compliance** — AES-256 encryption, 2FA, GDPR, Uganda Data Protection Act
@@ -108,6 +111,7 @@ All project documentation is located in the [`docs/`](docs/) directory:
 | [Core Capabilities Automation & Integration](docs/Core%20Capabilities%20Automation%20%26%20Integration.pdf) | Automation and integration capabilities |
 | [Comprehensive Reporting & Analytics Module](docs/Comprehensive%20Reporting%20%26%20Analytics%20Module.pdf) | Reporting and analytics module specification |
 | [Dashboard Content](docs/DashBoard%20Content.pdf) | Dashboard requirements and content |
+| [Borrower & Loan Module Requirements (Apr 2024)](docs/BRIGHT_MONEY_LENDING_SYSTEM_260424_120947.pdf) | Additional borrower, loan, field operations, staff, and company module requirements |
 | [Breakdown per Module](docs/Preack%20down%20module%20Per%20Module.pdf) | Module-by-module breakdown |
 | [Phase 3 User Capabilities](docs/phase%203%20user%20capabi_ities.pdf) | Phase 3 planned user capabilities |
 
